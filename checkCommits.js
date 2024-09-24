@@ -4,6 +4,8 @@ const repoOwner = 'khadija-AC';  // Remplace par le propriétaire du dépôt
 const repoName = 'github-commit';  // Remplace par le nom du dépôt
 let lastCommitSha = null;
 
+console.log('Début du suivi des commits...');  // Ajout du message de démarrage
+
 async function checkForNewCommits() {
   try {
     const response = await axios.get(`https://api.github.com/repos/${repoOwner}/${repoName}/commits`);
@@ -11,7 +13,8 @@ async function checkForNewCommits() {
 
     if (lastCommitSha && latestCommit.sha !== lastCommitSha) {
       console.log('Nouveau commit détecté :', latestCommit.commit.message);
-      // Tu peux ajouter une action ici, comme lancer un script, envoyer un email, etc.
+    } else {
+      console.log('Aucun nouveau commit.');  // Ajouter un message si pas de nouveaux commits
     }
 
     lastCommitSha = latestCommit.sha;
